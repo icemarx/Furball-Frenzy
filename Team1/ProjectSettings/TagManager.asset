@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Puppy
+  - Rope
   layers:
   - Default
   - TransparentFX

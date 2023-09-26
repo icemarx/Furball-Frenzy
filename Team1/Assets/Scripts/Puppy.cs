@@ -64,4 +64,9 @@ public class Puppy : MonoBehaviour
             isFree = true;
         }
     }
+
+
+    private void OnMouseDown() {
+        Debug.Log(this.name);
+    }
 }
