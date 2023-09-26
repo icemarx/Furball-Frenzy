@@ -8,8 +8,10 @@ public class Puppy : MonoBehaviour
 
     public Transform player; // Reference to the player's Transform
     public float movementSpeed = 3.0f; // Adjust this to control the puppy's movement speed
+    public float closeToPlayerDistance = 0.02f; // distance to player that is good enough
 
     public bool isFree = true;
+
 
     void Update() {
         if (player != null) {
@@ -30,23 +32,34 @@ public class Puppy : MonoBehaviour
             // Normalize the direction vector to make the movement consistent
             moveDirection.Normalize();
 
-
-            // find location where it wants to move
-            var whereToGo = transform.position + moveDirection * movementSpeed * Time.deltaTime;
-            NavMeshHit hit;
-            if (NavMesh.SamplePosition(whereToGo, out hit, 100f, NavMesh.AllAreas)) {
-                // move
-                transform.LookAt(hit.position);
-                transform.position = hit.position;
-            } else {
-                // stop
-                Debug.Log("Puppy edge reached");
-            }
-
-
-
+            MoveInDirection(moveDirection);            
         } else {
-            transform.Translate(player.position);
+            Vector3 toPlayer = player.position - transform.position;
+            MoveInDirection(toPlayer.normalized);
+
+            if (toPlayer.magnitude <= closeToPlayerDistance) {
+                isFree = true;
+            }
+        }
+    }
+
+    void MoveInDirection(Vector3 direction) {
+        // find location where it wants to move
+        var whereToGo = transform.position + direction * movementSpeed * Time.deltaTime;
+        NavMeshHit hit;
+        if (NavMesh.SamplePosition(whereToGo, out hit, 100f, NavMesh.AllAreas)) {
+            // move
+            transform.LookAt(hit.position);
+            transform.position = hit.position;
+        } else {
+            // stop
+            Debug.Log("Puppy edge reached");
+        }
+    }
+
+
+    private void OnCollisionEnter(Collision collision) {
+        if(collision.gameObject.CompareTag("Player")) {
             isFree = true;
         }
     }

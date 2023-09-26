@@ -46,6 +46,5 @@ public class PlayerCharacter : MonoBehaviour
 
     public void MoveTowards(Vector3 targetPosition) {
         transform.position = targetPosition;
-
     }
 }
