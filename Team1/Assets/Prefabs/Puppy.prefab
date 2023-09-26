@@ -121,10 +121,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  moveAwaySpeed: 1.5
-  moveToPlayerSpeed: 3
-  closeToPlayerDistance: 0.1
+  moveAwaySpeed: 3
+  moveToPlayerSpeed: 6
+  closeToPlayerDistance: 0.5
   isFree: 1
+  maxDistance: 10
 --- !u!1001 &2845798266799685152
 PrefabInstance:
   m_ObjectHideFlags: 0

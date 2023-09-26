@@ -13,6 +13,8 @@ public class Puppy : MonoBehaviour
 
     public bool isFree = true;
 
+    public float maxDistance;
+
 
     void Update() {
         if (player != null) {
@@ -26,14 +28,18 @@ public class Puppy : MonoBehaviour
             // Calculate the direction from the puppy to the player
             Vector3 moveDirection = transform.position - player.position;
 
-            Vector3 randomness = Random.insideUnitSphere;
-            randomness.y = 0;
-            moveDirection += randomness;
+            if (moveDirection.magnitude <= maxDistance) {
+                Vector3 randomness = Random.insideUnitSphere;
+                randomness.y = 0;
+                moveDirection += randomness;
 
-            // Normalize the direction vector to make the movement consistent
-            moveDirection.Normalize();
+                // Normalize the direction vector to make the movement consistent
+                moveDirection.Normalize();
 
-            MoveInDirection(moveDirection, moveAwaySpeed);            
+                MoveInDirection(moveDirection, moveAwaySpeed);
+            } else {
+                // stop
+            }
         } else {
             Vector3 toPlayer = player.position - transform.position;
             MoveInDirection(toPlayer.normalized, moveToPlayerSpeed);
