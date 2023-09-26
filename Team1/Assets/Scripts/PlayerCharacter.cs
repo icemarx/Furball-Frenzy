@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class PlayerCharacter : MonoBehaviour
 {
+    public float movementSpeed = 2.0f;
+
     // public int maxPuppyNumber = 10;
     public GameObject[] puppies = new GameObject[10];
     public int numPuppiesObtained = 0;
@@ -19,8 +22,8 @@ public class PlayerCharacter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        var middlePoint = GetAveragePuppyPosition();
-        MoveTowards(middlePoint);
+        Vector3 direction = (GetAveragePuppyPosition() - transform.position).normalized;
+        MoveInDirection(direction, movementSpeed);
     }
 
     public void AddPuppy(GameObject puppy) {
@@ -44,7 +47,23 @@ public class PlayerCharacter : MonoBehaviour
         return positionSum / numPuppiesObtained;
     }
 
+    /*
     public void MoveTowards(Vector3 targetPosition) {
         transform.position = targetPosition;
+    }
+    */
+
+    void MoveInDirection(Vector3 direction, float speed) {
+        // find location where it wants to move
+        var whereToGo = transform.position + direction * speed * Time.deltaTime;
+        NavMeshHit hit;
+        if (NavMesh.SamplePosition(whereToGo, out hit, 100f, NavMesh.AllAreas)) {
+            // move
+            transform.LookAt(hit.position);
+            transform.position = hit.position;
+        } else {
+            // stop
+            Debug.Log("Player edge reached");
+        }
     }
 }
