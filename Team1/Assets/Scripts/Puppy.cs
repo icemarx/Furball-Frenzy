@@ -36,11 +36,14 @@ public class Puppy : MonoBehaviour
             NavMeshHit hit;
             if (NavMesh.SamplePosition(whereToGo, out hit, 100f, NavMesh.AllAreas)) {
                 // move
+                transform.LookAt(hit.position);
                 transform.position = hit.position;
             } else {
                 // stop
                 Debug.Log("Puppy edge reached");
             }
+
+
 
         } else {
             transform.Translate(player.position);
