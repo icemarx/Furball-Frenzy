@@ -11,6 +11,9 @@ public class PlayerCharacter : MonoBehaviour
     public GameObject[] puppies = new GameObject[10];
     public int numPuppiesObtained = 0;
 
+    // public float maxRotationAngle = 1;
+    // public float minMovementRequired; // Doesn't work as expected
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -58,9 +61,16 @@ public class PlayerCharacter : MonoBehaviour
         var whereToGo = transform.position + direction * speed * Time.deltaTime;
         NavMeshHit hit;
         if (NavMesh.SamplePosition(whereToGo, out hit, 100f, NavMesh.AllAreas)) {
-            // move
+            // if((hit.position - transform.position).magnitude > minMovementRequired) {
+            // rotate
             transform.LookAt(hit.position);
+            // Quaternion rotation = Quaternion.LookRotation(direction, Vector3.up);
+            // transform.rotation = rotation;
+
+            // move
             transform.position = hit.position;
+            // }
+            
         } else {
             // stop
             Debug.Log("Player edge reached");
