@@ -7,8 +7,9 @@ public class Puppy : MonoBehaviour
 {
 
     public Transform player; // Reference to the player's Transform
-    public float movementSpeed = 3.0f; // Adjust this to control the puppy's movement speed
-    public float closeToPlayerDistance = 0.02f; // distance to player that is good enough
+    public float moveAwaySpeed = 1.5f; // Adjust this to control the puppy's movement speed
+    public float moveToPlayerSpeed = 3.0f;
+    public float closeToPlayerDistance = 0.1f; // distance to player that is good enough
 
     public bool isFree = true;
 
@@ -32,10 +33,10 @@ public class Puppy : MonoBehaviour
             // Normalize the direction vector to make the movement consistent
             moveDirection.Normalize();
 
-            MoveInDirection(moveDirection);            
+            MoveInDirection(moveDirection, moveAwaySpeed);            
         } else {
             Vector3 toPlayer = player.position - transform.position;
-            MoveInDirection(toPlayer.normalized);
+            MoveInDirection(toPlayer.normalized, moveToPlayerSpeed);
 
             if (toPlayer.magnitude <= closeToPlayerDistance) {
                 isFree = true;
@@ -43,9 +44,9 @@ public class Puppy : MonoBehaviour
         }
     }
 
-    void MoveInDirection(Vector3 direction) {
+    void MoveInDirection(Vector3 direction, float speed) {
         // find location where it wants to move
-        var whereToGo = transform.position + direction * movementSpeed * Time.deltaTime;
+        var whereToGo = transform.position + direction * speed * Time.deltaTime;
         NavMeshHit hit;
         if (NavMesh.SamplePosition(whereToGo, out hit, 100f, NavMesh.AllAreas)) {
             // move
