@@ -524,7 +524,7 @@ GameObject:
   - component: {fileID: 642948243}
   - component: {fileID: 642948242}
   - component: {fileID: 642948241}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Plane
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -1279,8 +1279,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collisionLayer:
     serializedVersion: 2
-    m_Bits: 1
-  detectionRadius: 1
+    m_Bits: 64
+  detectionRadius: 1.5
   spherePrefab: {fileID: 93088474}
 --- !u!1001 &1126182481
 PrefabInstance:

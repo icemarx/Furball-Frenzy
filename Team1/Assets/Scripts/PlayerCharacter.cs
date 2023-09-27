@@ -14,7 +14,8 @@ public class PlayerCharacter : MonoBehaviour
     public Transform arm;
 
     // public float maxRotationAngle = 1;
-    // public float minMovementRequired; // Doesn't work as expected
+    public float minMovementRequired;
+    private float lerp_t = 0.15f;
 
     // Start is called before the first frame update
     void Awake()
@@ -68,8 +69,15 @@ public class PlayerCharacter : MonoBehaviour
         NavMeshHit hit;
         if (NavMesh.SamplePosition(whereToGo, out hit, 100f, NavMesh.AllAreas)) {
             // if((hit.position - transform.position).magnitude > minMovementRequired) {
-            // rotate
-            transform.LookAt(hit.position);
+            
+            if((hit.position-transform.position).magnitude > minMovementRequired) {
+                // rotate
+                var save = transform.eulerAngles;
+                transform.LookAt(hit.position);
+                float newRotation = Mathf.LerpAngle(save.y, transform.eulerAngles.y, lerp_t);
+                
+                transform.eulerAngles = new Vector3(0, newRotation, 0);
+            }
             // Quaternion rotation = Quaternion.LookRotation(direction, Vector3.up);
             // transform.rotation = rotation;
 
