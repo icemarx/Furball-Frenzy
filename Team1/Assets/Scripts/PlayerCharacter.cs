@@ -35,6 +35,7 @@ public class PlayerCharacter : MonoBehaviour
         } else 
         {
             puppies[numPuppiesObtained] = puppy;
+            puppies[numPuppiesObtained].GetComponent<Puppy>().puppyIndex = numPuppiesObtained;
             numPuppiesObtained += 1;
         }
     }

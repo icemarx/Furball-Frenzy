@@ -5,7 +5,6 @@ using UnityEngine.AI;
 
 public class Puppy : MonoBehaviour
 {
-
     public Transform player; // Reference to the player's Transform
     public float moveAwaySpeed = 1.5f; // Adjust this to control the puppy's movement speed
     public float moveToPlayerSpeed = 3.0f;
@@ -14,6 +13,8 @@ public class Puppy : MonoBehaviour
     public bool isFree = true;
 
     public float maxDistance;
+
+    public int puppyIndex = -1;
 
 
     void Update() {
@@ -26,16 +27,21 @@ public class Puppy : MonoBehaviour
     void Movement() {
         if(isFree) {
             // Calculate the direction from the puppy to the player
-            Vector3 moveDirection = transform.position - player.position;
+            Vector3 awayFromPlayer = transform.position - player.position;
 
-            if (moveDirection.magnitude <= maxDistance) {
+            if (awayFromPlayer.magnitude <= maxDistance) {
+                // other rules
+                // Vector3 awayFromPuppies = transform.position - AverageOtherPuppies();
+                Vector3 circleDir = CircleDirection();
                 Vector3 randomness = Random.insideUnitSphere;
                 randomness.y = 0;
-                moveDirection += randomness;
 
-                // Normalize the direction vector to make the movement consistent
+                // join and normalize
+                // Vector3 moveDirection = awayFromPlayer + awayFromPuppies + randomness;
+                Vector3 moveDirection = awayFromPlayer + circleDir + randomness;
                 moveDirection.Normalize();
 
+                // move
                 MoveInDirection(moveDirection, moveAwaySpeed);
             } else {
                 // stop
@@ -69,6 +75,24 @@ public class Puppy : MonoBehaviour
         if(collision.gameObject.CompareTag("Player")) {
             isFree = true;
         }
+    }
+
+    public Vector3 AverageOtherPuppies() {
+        Vector3 avg = Vector3.zero;
+        int count = 0;
+        foreach(var puppy in player.GetComponent<PlayerCharacter>().puppies) {
+            if(puppy && puppy != this.gameObject) {
+                avg += puppy.transform.position;
+                count += 1;
+            }
+        }
+
+        return avg / count;
+    }
+
+    public Vector3 CircleDirection() {
+        float angle = 360.0f * puppyIndex / player.GetComponent<PlayerCharacter>().numPuppiesObtained;
+        return new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle));
     }
 
 
