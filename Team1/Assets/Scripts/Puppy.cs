@@ -19,6 +19,7 @@ public class Puppy : MonoBehaviour
     public int puppyIndex = -1;
 
     public Rope rope;
+    private float lerp_t = 0.3f;
 
 
     void Update() {
@@ -38,12 +39,12 @@ public class Puppy : MonoBehaviour
                     // other rules
                     // Vector3 awayFromPuppies = transform.position - AverageOtherPuppies();
                     Vector3 circleDir = CircleDirection();
-                    Vector3 randomness = Random.insideUnitSphere;
-                    randomness.y = 0;
+                    // Vector3 randomness = Random.insideUnitSphere;
+                    // randomness.y = 0;
 
                     // join and normalize
                     // Vector3 moveDirection = awayFromPlayer + awayFromPuppies + randomness;
-                    Vector3 moveDirection = awayFromPlayer.normalized + circleDir.normalized + randomness;
+                    Vector3 moveDirection = awayFromPlayer.normalized + circleDir.normalized; // + randomness;
                     moveDirection.Normalize();
 
                     // move
@@ -67,8 +68,13 @@ public class Puppy : MonoBehaviour
         var whereToGo = transform.position + direction * speed * Time.deltaTime;
         NavMeshHit hit;
         if (NavMesh.SamplePosition(whereToGo, out hit, 100f, NavMesh.AllAreas)) {
-            // move
+            // rotate
+            var save = transform.eulerAngles;
             transform.LookAt(hit.position);
+            float newRotation = Mathf.LerpAngle(save.y, transform.eulerAngles.y, lerp_t);
+
+            // move
+            // transform.LookAt(hit.position);
             transform.position = hit.position;
         } else {
             // stop

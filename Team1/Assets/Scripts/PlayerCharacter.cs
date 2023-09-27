@@ -15,7 +15,7 @@ public class PlayerCharacter : MonoBehaviour
 
     // public float maxRotationAngle = 1;
     public float minMovementRequired;
-    private float lerp_t = 0.15f;
+    private float lerp_t = 5f;
 
     // Start is called before the first frame update
     void Awake()
@@ -64,6 +64,7 @@ public class PlayerCharacter : MonoBehaviour
     */
 
     void MoveInDirection(Vector3 direction, float speed) {
+        
         // find location where it wants to move
         var whereToGo = transform.position + direction * speed * Time.deltaTime;
         NavMeshHit hit;
@@ -74,7 +75,7 @@ public class PlayerCharacter : MonoBehaviour
                 // rotate
                 var save = transform.eulerAngles;
                 transform.LookAt(hit.position);
-                float newRotation = Mathf.LerpAngle(save.y, transform.eulerAngles.y, lerp_t);
+                float newRotation = Mathf.LerpAngle(save.y, transform.eulerAngles.y, lerp_t * Time.deltaTime);
                 
                 transform.eulerAngles = new Vector3(0, newRotation, 0);
             }
