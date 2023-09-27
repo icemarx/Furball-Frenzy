@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6523342757539839479}
   - component: {fileID: 9035178410788751677}
   - component: {fileID: 4902636389858093548}
+  - component: {fileID: 5761297090710759856}
   m_Layer: 0
   m_Name: Tree_02
   m_TagString: Untagged
@@ -100,3 +101,17 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: -0.058000002, y: 3.9090002, z: 0.20600002}
   m_TimeToStationary: 0.5
+--- !u!114 &5761297090710759856
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7377910578766424296}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf7b8c1dfadce2d4ea55d44d7733fe3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hideDistance: 13
+  apearDistance: 17
