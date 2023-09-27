@@ -8,6 +8,7 @@ TagManager:
   - Rope
   - Ground
   - Obstacle
+  - Platform
   layers:
   - Default
   - TransparentFX

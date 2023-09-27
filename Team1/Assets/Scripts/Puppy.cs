@@ -84,7 +84,7 @@ public class Puppy : MonoBehaviour
 
 
     private void OnCollisionEnter(Collision collision) {
-        Debug.Log(collision.gameObject.name);
+        // Debug.Log(collision.gameObject.name);
         if(collision.gameObject.CompareTag("Player")) {
             isFree = true;
 
@@ -113,7 +113,7 @@ public class Puppy : MonoBehaviour
     }
 
     public void StrayNoMore(int index, Transform player, Transform arm) {
-        Debug.Log("Stray no more");
+        // Debug.Log("Stray no more");
         puppyIndex = index;
         isStray = false;
         this.player = player;
