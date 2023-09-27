@@ -64,19 +64,36 @@ public class PlayerCharacter : MonoBehaviour
     */
 
     void MoveInDirection(Vector3 direction, float speed) {
-        
+        var whereToGo = transform.position + direction * speed * Time.deltaTime;
+
+        if ((whereToGo - transform.position).magnitude > minMovementRequired) {
+            // rotate
+            var save = transform.eulerAngles;
+            transform.LookAt(whereToGo);
+            float newRotation = Mathf.LerpAngle(save.y, transform.eulerAngles.y, lerp_t * Time.deltaTime);
+
+            transform.eulerAngles = new Vector3(0, newRotation, 0);
+
+            // Quaternion rotation = Quaternion.LookRotation(direction, Vector3.up);
+            // transform.rotation = rotation;
+
+            // move
+            transform.position = whereToGo;
+        }
+
+        /*
         // find location where it wants to move
         var whereToGo = transform.position + direction * speed * Time.deltaTime;
         NavMeshHit hit;
         if (NavMesh.SamplePosition(whereToGo, out hit, 100f, NavMesh.AllAreas)) {
             // if((hit.position - transform.position).magnitude > minMovementRequired) {
-            
+
             if((hit.position-transform.position).magnitude > minMovementRequired) {
                 // rotate
                 var save = transform.eulerAngles;
                 transform.LookAt(hit.position);
                 float newRotation = Mathf.LerpAngle(save.y, transform.eulerAngles.y, lerp_t * Time.deltaTime);
-                
+
                 transform.eulerAngles = new Vector3(0, newRotation, 0);
             }
             // Quaternion rotation = Quaternion.LookRotation(direction, Vector3.up);
@@ -85,10 +102,18 @@ public class PlayerCharacter : MonoBehaviour
             // move
             transform.position = hit.position;
             // }
-            
+
         } else {
             // stop
             Debug.Log("Player edge reached");
+        }
+        */
+    }
+
+
+    private void OnCollisionEnter(Collision collision) {
+        if(collision.gameObject.CompareTag("Obstacle")) {
+            Debug.Log("DEAD");
         }
     }
 }

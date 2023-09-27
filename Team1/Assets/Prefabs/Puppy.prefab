@@ -123,7 +123,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isStray: 1
   player: {fileID: 0}
-  moveAwaySpeed: 3
+  moveAwaySpeed: 2.5
   moveToPlayerSpeed: 6
   closeToPlayerDistance: 0.5
   isFree: 1
