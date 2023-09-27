@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 7404724810874252379}
   - component: {fileID: 4694486606139005073}
   - component: {fileID: -1721375868139365052}
+  - component: {fileID: 3670534677787900455}
   m_Layer: 0
   m_Name: Rock_02
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -100,3 +101,24 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0.046000004, y: 0.56200004, z: -0.024}
   m_TimeToStationary: 0.5
+--- !u!65 &3670534677787900455
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6496115641627523396}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.6920743, y: 1.2345104, z: 1.9026494}
+  m_Center: {x: 0.046037883, y: 0.56213367, z: -0.023559421}

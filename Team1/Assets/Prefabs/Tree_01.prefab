@@ -13,9 +13,10 @@ GameObject:
   - component: {fileID: 287927566390179532}
   - component: {fileID: -638759175726310835}
   - component: {fileID: -2669466770510927894}
+  - component: {fileID: 4878950553382376280}
   m_Layer: 0
   m_Name: Tree_01
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -115,3 +116,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hideDistance: 8
   apearDistance: 15
+--- !u!136 &4878950553382376280
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1800895492517074713}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 6.06
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.72, z: 0}
