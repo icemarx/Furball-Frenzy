@@ -5,6 +5,8 @@ using UnityEngine.AI;
 
 public class Puppy : MonoBehaviour
 {
+    public bool isStray = true;
+
     public Transform player; // Reference to the player's Transform
     public float moveAwaySpeed = 1.5f; // Adjust this to control the puppy's movement speed
     public float moveToPlayerSpeed = 3.0f;
@@ -16,6 +18,8 @@ public class Puppy : MonoBehaviour
 
     public int puppyIndex = -1;
 
+    public Rope rope;
+
 
     void Update() {
         if (player != null) {
@@ -25,35 +29,37 @@ public class Puppy : MonoBehaviour
 
 
     void Movement() {
-        if(isFree) {
-            // Calculate the direction from the puppy to the player
-            Vector3 awayFromPlayer = transform.position - player.position;
+        if(!isStray) {
+            if (isFree) {
+                // Calculate the direction from the puppy to the player
+                Vector3 awayFromPlayer = transform.position - player.position;
 
-            if (awayFromPlayer.magnitude <= maxDistance) {
-                // other rules
-                // Vector3 awayFromPuppies = transform.position - AverageOtherPuppies();
-                Vector3 circleDir = CircleDirection();
-                Vector3 randomness = Random.insideUnitSphere;
-                randomness.y = 0;
+                if (awayFromPlayer.magnitude <= maxDistance) {
+                    // other rules
+                    // Vector3 awayFromPuppies = transform.position - AverageOtherPuppies();
+                    Vector3 circleDir = CircleDirection();
+                    Vector3 randomness = Random.insideUnitSphere;
+                    randomness.y = 0;
 
-                // join and normalize
-                // Vector3 moveDirection = awayFromPlayer + awayFromPuppies + randomness;
-                Vector3 moveDirection = awayFromPlayer + circleDir + randomness;
-                moveDirection.Normalize();
+                    // join and normalize
+                    // Vector3 moveDirection = awayFromPlayer + awayFromPuppies + randomness;
+                    Vector3 moveDirection = awayFromPlayer.normalized + circleDir.normalized + randomness;
+                    moveDirection.Normalize();
 
-                // move
-                MoveInDirection(moveDirection, moveAwaySpeed);
+                    // move
+                    MoveInDirection(moveDirection, moveAwaySpeed);
+                } else {
+                    // stop
+                }
             } else {
-                // stop
-            }
-        } else {
-            Vector3 toPlayer = player.position - transform.position;
-            MoveInDirection(toPlayer.normalized, moveToPlayerSpeed);
+                Vector3 toPlayer = player.position - transform.position;
+                MoveInDirection(toPlayer.normalized, moveToPlayerSpeed);
 
-            if (toPlayer.magnitude <= closeToPlayerDistance) {
-                isFree = true;
+                if (toPlayer.magnitude <= closeToPlayerDistance) {
+                    isFree = true;
+                }
             }
-        }
+        }        
     }
 
     void MoveInDirection(Vector3 direction, float speed) {
@@ -72,8 +78,13 @@ public class Puppy : MonoBehaviour
 
 
     private void OnCollisionEnter(Collision collision) {
+        Debug.Log(collision.gameObject.name);
         if(collision.gameObject.CompareTag("Player")) {
             isFree = true;
+
+            if(isStray) {
+                collision.gameObject.GetComponent<PlayerCharacter>().AddPuppy(this);
+            }
         }
     }
 
@@ -95,8 +106,15 @@ public class Puppy : MonoBehaviour
         return new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle));
     }
 
+    public void StrayNoMore(int index, Transform player, Transform arm) {
+        Debug.Log("Stray no more");
+        puppyIndex = index;
+        isStray = false;
+        this.player = player;
 
-    private void OnMouseDown() {
-        Debug.Log(this.name);
+        // activate rope
+        rope.arm = arm;
+        rope.UpdateRope();
+        rope.gameObject.SetActive(true);
     }
 }

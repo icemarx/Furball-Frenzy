@@ -9,14 +9,18 @@ public class Rope : MonoBehaviour
     
 
     public void LateUpdate() {
-        if(arm) {
+        UpdateRope();
+    }
+
+    public void UpdateRope() {
+        if (arm) {
             // rotate
             transform.LookAt(arm);
 
             // scale
             float distanceToPlayer = (arm.position - transform.position).magnitude;
             Vector3 newScale = transform.localScale;
-            newScale.z = distanceToPlayer/2;
+            newScale.z = distanceToPlayer / 2;
             transform.localScale = newScale;
         }
     }

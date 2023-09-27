@@ -239,3 +239,4 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   numPuppiesObtained: 0
+  arm: {fileID: 5605134953305965211}

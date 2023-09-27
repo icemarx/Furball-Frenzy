@@ -8,8 +8,10 @@ public class PlayerCharacter : MonoBehaviour
     public float movementSpeed = 2.0f;
 
     // public int maxPuppyNumber = 10;
-    public GameObject[] puppies = new GameObject[10];
+    public Puppy[] puppies = new Puppy[10];
     public int numPuppiesObtained = 0;
+
+    public Transform arm;
 
     // public float maxRotationAngle = 1;
     // public float minMovementRequired; // Doesn't work as expected
@@ -18,7 +20,10 @@ public class PlayerCharacter : MonoBehaviour
     void Awake()
     {
         foreach (var p in GameObject.FindGameObjectsWithTag("Puppy")) {
-            AddPuppy(p);
+            Puppy puppy = p.GetComponent<Puppy>();
+            if(!puppy.isStray) {
+                AddPuppy(puppy);
+            }
         }
     }
 
@@ -29,13 +34,13 @@ public class PlayerCharacter : MonoBehaviour
         MoveInDirection(direction, movementSpeed);
     }
 
-    public void AddPuppy(GameObject puppy) {
+    public void AddPuppy(Puppy puppy) {
         if(puppies.Length == numPuppiesObtained) {
             Debug.Log("You win");
         } else 
         {
             puppies[numPuppiesObtained] = puppy;
-            puppies[numPuppiesObtained].GetComponent<Puppy>().puppyIndex = numPuppiesObtained;
+            puppies[numPuppiesObtained].StrayNoMore(numPuppiesObtained, transform, arm);
             numPuppiesObtained += 1;
         }
     }
