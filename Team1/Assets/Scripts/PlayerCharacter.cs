@@ -10,6 +10,7 @@ public class PlayerCharacter : MonoBehaviour
     // public int maxPuppyNumber = 10;
     public Puppy[] puppies = new Puppy[10];
     public int numPuppiesObtained = 0;
+    public int startingNumber = 0;
 
     public Transform arm;
 
@@ -26,6 +27,7 @@ public class PlayerCharacter : MonoBehaviour
                 AddPuppy(puppy);
             }
         }
+        startingNumber = numPuppiesObtained;
     }
 
     // Update is called once per frame
