@@ -114,8 +114,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf7b8c1dfadce2d4ea55d44d7733fe3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hideDistance: 8
-  apearDistance: 15
+  hideDistance: 10
+  apearDistance: 13.5
 --- !u!136 &1267684545345491079
 CapsuleCollider:
   m_ObjectHideFlags: 0
