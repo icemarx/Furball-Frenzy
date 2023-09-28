@@ -1533,6 +1533,7 @@ MonoBehaviour:
   nextLevelButton: {fileID: 866012702}
   tryAgainButton: {fileID: 1606980784}
   textNumPuppies: {fileID: 23657005}
+  sm: {fileID: 1086859982}
 --- !u!82 &1086859981
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1642,6 +1643,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainTheme: {fileID: 8300000, guid: 4d48592bebc62c54ca859fea60b62b27, type: 3}
+  tutorialTheme: {fileID: 8300000, guid: 54659d4a3e8ac7d438584f45d5c626a3, type: 3}
+  winTheme: {fileID: 8300000, guid: 4c7dc68f75e7e464a8eb6e52bd50408b, type: 3}
+  loseTheme: {fileID: 8300000, guid: 3f8bffa5af4ea42449fdd0ec784df8b0, type: 3}
+  happyBarks:
+  - {fileID: 8300000, guid: dae9293f7e7cf9647b1c62916b7c5e87, type: 3}
+  - {fileID: 8300000, guid: 847b0ecab3037f047b2c2e812699c2b1, type: 3}
+  - {fileID: 8300000, guid: 25a9e750a83d36647844c5154ade2979, type: 3}
+  - {fileID: 8300000, guid: fa0a8c4b64fe0f640a624ca88f8cab56, type: 3}
+  - {fileID: 8300000, guid: f90de1c627321594c9fba17feb0fd396, type: 3}
+  - {fileID: 8300000, guid: 5cabe43a9cfc7ec4c969ffab7d65b1fd, type: 3}
+  - {fileID: 8300000, guid: 6aabcb7558136364ba4671838fd1bcae, type: 3}
+  - {fileID: 8300000, guid: d75b2aa057c2bc442a1106b055750937, type: 3}
+  - {fileID: 8300000, guid: b8efd8b01d5ec14418e7ae2d5115b7ae, type: 3}
+  - {fileID: 8300000, guid: 083267e6beb307d4ab3deeca6c9bf0fe, type: 3}
+  - {fileID: 8300000, guid: d04533701312cc643bc85c6955bc56b3, type: 3}
+  - {fileID: 8300000, guid: 762065eac9517674e9cac6223520dbe4, type: 3}
+  sadBarks:
+  - {fileID: 8300000, guid: c0f5e10ea747e97488083d60fcd972bd, type: 3}
+  - {fileID: 8300000, guid: 1f6dd942ec0d5c145b9a7419e560b8c3, type: 3}
+  - {fileID: 8300000, guid: 8e533903760119848b2e51a4f4adb5c8, type: 3}
+  - {fileID: 8300000, guid: 82d57c911d69d0f42838e7db5b125e3b, type: 3}
+  - {fileID: 8300000, guid: 9ad7a638c97cc8542929818201e5f558, type: 3}
+  - {fileID: 8300000, guid: 4427aac99acc60041b5b4732368f0bde, type: 3}
+  - {fileID: 8300000, guid: fe6215e6bde58024fa7b09a5dd9a2ffc, type: 3}
 --- !u!1 &1481982785
 GameObject:
   m_ObjectHideFlags: 0

@@ -31,11 +31,18 @@ public class GameManager : MonoBehaviour
     public Button tryAgainButton;
     public TMP_Text textNumPuppies;
 
+    [Header("Audio")]
+    public SoundManager sm;
+
     public void Awake() {
         playButton.onClick.AddListener(StartGame);
         restartLevelButton.onClick.AddListener(RestartLevel);
         nextLevelButton.onClick.AddListener(NextLevel);
         tryAgainButton.onClick.AddListener(RestartLevel);
+    }
+
+    public void Start() {
+        HandleGameStateChange(gameState);
     }
 
 
@@ -87,6 +94,7 @@ public class GameManager : MonoBehaviour
                 winScreen.SetActive(false);
                 loseScreen.SetActive(false);
                 gameScreen.SetActive(false);
+                sm.ChooseTrack(newState);
                 break;
 
             case ACTIVE_GAME_STATE:
@@ -95,6 +103,7 @@ public class GameManager : MonoBehaviour
                 loseScreen.SetActive(false);
                 gameScreen.SetActive(true);
                 UpdateCounter();
+                sm.ChooseTrack(newState);
                 break;
 
             case WIN_STATE:
@@ -102,6 +111,7 @@ public class GameManager : MonoBehaviour
                 winScreen.SetActive(true);
                 loseScreen.SetActive(false);
                 gameScreen.SetActive(true);
+                sm.ChooseTrack(newState);
                 break;
 
             case LOSE_STATE:
@@ -109,6 +119,7 @@ public class GameManager : MonoBehaviour
                 winScreen.SetActive(false);
                 loseScreen.SetActive(true);
                 gameScreen.SetActive(true);
+                sm.ChooseTrack(newState);
                 break;
                 
         }
