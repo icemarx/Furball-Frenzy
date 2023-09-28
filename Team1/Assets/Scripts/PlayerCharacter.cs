@@ -9,6 +9,7 @@ public class PlayerCharacter : MonoBehaviour
 
     //  public int maxPuppyNumber = 10;
     public Puppy[] puppies = new Puppy[13];
+    public int numPuppiesNeededToRetrieve;
     public int numPuppiesObtained = 0;
     public int startingNumber = 0;
 
@@ -28,6 +29,7 @@ public class PlayerCharacter : MonoBehaviour
             }
         }
         startingNumber = numPuppiesObtained;
+        numPuppiesNeededToRetrieve = puppies.Length - numPuppiesObtained + 1;
     }
 
     // Update is called once per frame
