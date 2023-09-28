@@ -7,10 +7,9 @@ public class PlayerCharacter : MonoBehaviour
 {
     public float movementSpeed = 2.0f;
 
-    //  public int maxPuppyNumber = 10;
-    public Puppy[] puppies = new Puppy[13];
+    // public int maxPuppyNumber = 10;
+    public Puppy[] puppies = new Puppy[10];
     public int numPuppiesObtained = 0;
-    public int startingNumber = 0;
 
     public Transform arm;
 
@@ -27,7 +26,6 @@ public class PlayerCharacter : MonoBehaviour
                 AddPuppy(puppy);
             }
         }
-        startingNumber = numPuppiesObtained;
     }
 
     // Update is called once per frame
@@ -38,7 +36,6 @@ public class PlayerCharacter : MonoBehaviour
     }
 
     public void AddPuppy(Puppy puppy) {
-        Debug.Log(numPuppiesObtained);
         if(puppies.Length == numPuppiesObtained) {
             Debug.Log("You win");
         } else 
@@ -46,12 +43,6 @@ public class PlayerCharacter : MonoBehaviour
             puppies[numPuppiesObtained] = puppy;
             puppies[numPuppiesObtained].StrayNoMore(numPuppiesObtained, transform, arm);
             numPuppiesObtained += 1;
-        }
-
-        if(puppies.Length == numPuppiesObtained) {
-            // Debug.Log("WIN CONDITION MET, PLAYER SIDE");
-            GameManager gm = FindObjectOfType<GameManager>();
-            gm.WinConditionMet();
         }
     }
 
@@ -123,8 +114,6 @@ public class PlayerCharacter : MonoBehaviour
     private void OnCollisionEnter(Collision collision) {
         if(collision.gameObject.CompareTag("Obstacle")) {
             Debug.Log("DEAD");
-            GameManager gm = FindObjectOfType<GameManager>();
-            gm.LoseConditionMet();
         }
     }
 }

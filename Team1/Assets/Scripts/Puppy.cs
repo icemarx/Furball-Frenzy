@@ -21,9 +21,6 @@ public class Puppy : MonoBehaviour
     public Rope rope;
     private float lerp_t = 0.3f;
 
-    public Animator animator;
-    public bool isMoving = false;
-
 
     void Update() {
         if (player != null) {
@@ -67,7 +64,6 @@ public class Puppy : MonoBehaviour
     }
 
     void MoveInDirection(Vector3 direction, float speed) {
-
         // find location where it wants to move
         var whereToGo = transform.position + direction * speed * Time.deltaTime;
         NavMeshHit hit;
@@ -80,12 +76,9 @@ public class Puppy : MonoBehaviour
             // move
             // transform.LookAt(hit.position);
             transform.position = hit.position;
-
-            isMoving = true;
         } else {
             // stop
             Debug.Log("Puppy edge reached");
-            isMoving = false;
         }
     }
 
