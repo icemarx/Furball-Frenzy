@@ -130,12 +130,13 @@ public class GameManager : MonoBehaviour
     // UI ========================================================================================================
     public void StartGame() {
         // HandleGameStateChange(ACTIVE_GAME_STATE);
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene("Level 1");
     }
 
     public void RestartLevel() {
         Debug.Log("Restart Level");
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        // SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene("Level 1");
     }
 
 
