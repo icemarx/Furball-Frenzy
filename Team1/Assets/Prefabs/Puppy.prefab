@@ -126,6 +126,7 @@ MonoBehaviour:
   player: {fileID: 0}
   moveAwaySpeed: 2.5
   moveToPlayerSpeed: 6
+  acceleration: 1
   closeToPlayerDistance: 0.5
   isFree: 1
   maxDistance: 10

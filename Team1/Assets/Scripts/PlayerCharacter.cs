@@ -24,7 +24,7 @@ public class PlayerCharacter : MonoBehaviour
     {
         foreach (var p in GameObject.FindGameObjectsWithTag("Puppy")) {
             Puppy puppy = p.GetComponent<Puppy>();
-            if(!puppy.isStray) {
+            if(!puppy.IsStray()) {
                 AddPuppy(puppy);
             }
         }
