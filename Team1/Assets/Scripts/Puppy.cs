@@ -84,7 +84,7 @@ public class Puppy : MonoBehaviour
                 {
                     if(p != null)
                     {
-                        resultant += this.transform.position - p.transform.position;
+                        resultant += (this.transform.position - p.transform.position).normalized;
                     }
                 }
 
@@ -121,6 +121,7 @@ public class Puppy : MonoBehaviour
                 {
                     Debug.Log("close to player");
                     isFree = true;
+                    isMoving = false;
                     currentVelocity = Vector3.zero;
 
                     // Sit

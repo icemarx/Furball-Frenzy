@@ -15,6 +15,7 @@ public class PlayerCharacter : MonoBehaviour
 
     public Transform arm;
 
+
     // public float maxRotationAngle = 1;
     public float minMovementRequired;
     private float lerp_t = 5f;
@@ -35,8 +36,12 @@ public class PlayerCharacter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        /*
         Vector3 direction = (GetAveragePuppyPosition() - transform.position).normalized;
         MoveInDirection(direction, movementSpeed);
+        */
+
+        Movement();
     }
 
     public void AddPuppy(Puppy puppy) {
@@ -68,12 +73,63 @@ public class PlayerCharacter : MonoBehaviour
         return positionSum / numPuppiesObtained;
     }
 
+    public void Movement()
+    {
+        // Calculate forces from dogs
+        Vector3 puppyForce = Vector3.zero;
+        foreach(Puppy puppy in puppies)
+        {
+            if(puppy != null)
+            {
+                puppyForce += (puppy.transform.position - transform.position);
+            }
+        }
+        // puppyForce.Normalize();
+        // puppyForce *= movementSpeed * Time.deltaTime;
+
+        // Check max distances
+        float moveMagnitude = movementSpeed * Time.deltaTime;
+        bool shouldMove = moveMagnitude >= minMovementRequired;
+        Vector3 targetLocation = transform.position + puppyForce.normalized * moveMagnitude;
+        if (shouldMove)
+        {
+            foreach (Puppy puppy in puppies)
+            {
+                if (puppy != null && Vector3.Distance(targetLocation, puppy.transform.position) > puppy.maxDistance)
+                {
+                    shouldMove = false;
+                    break;
+                }
+            }
+        }
+
+        // Move
+        if (shouldMove)
+        {
+            // rotate
+            var save = transform.eulerAngles;
+            transform.LookAt(transform.position + puppyForce.normalized);
+            float newRotation = Mathf.LerpAngle(save.y, transform.eulerAngles.y, lerp_t * Time.deltaTime);
+
+            transform.eulerAngles = new Vector3(0, newRotation, 0);
+
+            // Quaternion rotation = Quaternion.LookRotation(direction, Vector3.up);
+            // transform.rotation = rotation;
+
+            // move
+            transform.position = targetLocation;
+        }
+    }
+
     /*
     public void MoveTowards(Vector3 targetPosition) {
         transform.position = targetPosition;
     }
     */
 
+    /*
+     * DEPRICATED
+     */
     void MoveInDirection(Vector3 direction, float speed) {
         var whereToGo = transform.position + direction * speed * Time.deltaTime;
 
