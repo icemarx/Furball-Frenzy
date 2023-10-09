@@ -13,6 +13,9 @@ public class SoundManager : MonoBehaviour
     public AudioClip[] happyBarks;
     public AudioClip[] sadBarks;
 
+    private bool waitForNext = false;
+    private AudioClip nextAudio = null;
+
     void Awake() {
         // Get the AudioSource component attached to this GameObject
         audioSource = GetComponent<AudioSource>();
@@ -25,6 +28,17 @@ public class SoundManager : MonoBehaviour
         // Play the main theme
         audioSource.Play();
         */
+    }
+
+    private void Update()
+    {
+        if(waitForNext && !audioSource.isPlaying && nextAudio != null)
+        {
+            audioSource.clip = nextAudio;
+            audioSource.Play();
+            nextAudio = null;
+            waitForNext = false;
+        }
     }
 
     public void ChooseTrack(int state) {
@@ -45,15 +59,24 @@ public class SoundManager : MonoBehaviour
                 audioSource.loop = false;
                 audioSource.Play();
 
-                // TODO: play happy bark after
+                // play happy bark after
+                nextAudio = RandomAudio(happyBarks);
+                waitForNext = true;
                 break;
             case GameManager.LOSE_STATE:
                 audioSource.clip = loseTheme;
                 audioSource.loop = false;
                 audioSource.Play();
 
-                // TODO: play sad bark after
+                //  play sad bark after
+                nextAudio = RandomAudio(sadBarks);
+                waitForNext = true;
                 break;
         }
+    }
+
+    private AudioClip RandomAudio(AudioClip[] clips)
+    {
+        return clips[Random.Range(0, clips.Length)];
     }
 }
