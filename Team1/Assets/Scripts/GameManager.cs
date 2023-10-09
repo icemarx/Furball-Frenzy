@@ -73,11 +73,21 @@ public class GameManager : MonoBehaviour
                     // Handle collisions
                     foreach (Collider collider in colliders) {
                         if (collider.gameObject.CompareTag("Puppy")) {
-                            collider.gameObject.GetComponent<Puppy>().isFree = false;
-                            break;
+                            Puppy puppy = collider.gameObject.GetComponent<Puppy>();
+
+                            if(puppy.isFree)
+                            {
+                                puppy.isFree = false;
+                                break;
+                            }
                         } else if (collider.gameObject.CompareTag("Rope")) {
-                            collider.gameObject.GetComponentInParent<Puppy>().isFree = false;
-                            break;
+                            Puppy puppy = collider.gameObject.GetComponentInParent<Puppy>();
+
+                            if (puppy.isFree)
+                            {
+                                puppy.isFree = false;
+                                break;
+                            }
                         }
                     }
                 }
