@@ -16,7 +16,7 @@ public class Puppy : MonoBehaviour
     public float closeToPlayerDistance = 0.1f; // distance to player that is good enough
 
     public bool isFree = true;
-    public float timeToSit = 2f;
+    public float timeToFollow = 2f;
 
     public float maxDistance;
 
@@ -115,17 +115,14 @@ public class Puppy : MonoBehaviour
                 Vector3 toPlayer = (player.position - transform.position).normalized * acceleration;
                 currentVelocity = Vector3.ClampMagnitude(currentVelocity + toPlayer, moveToPlayerSpeed);
 
-                MoveToLocation(transform.position + currentVelocity * Time.deltaTime);
 
                 if ((player.position - transform.position).magnitude <= closeToPlayerDistance)
                 {
-                    Debug.Log("close to player");
-                    isFree = true;
                     isMoving = false;
                     currentVelocity = Vector3.zero;
-
-                    // Sit
-                    StartCoroutine(Sit());
+                } else
+                {
+                    MoveToLocation(transform.position + currentVelocity * Time.deltaTime);
                 }
             }
         }
@@ -240,12 +237,23 @@ public class Puppy : MonoBehaviour
         return player == null;
     }
 
+
+    public IEnumerator Follow()
+    {
+        isFree = false;
+        yield return new WaitForSeconds(timeToFollow);
+        isFree = true;
+    }
+
+    // DEPRICATED
+    /*
     public IEnumerator Sit()
     {
         isSitting = true;
 
-        yield return new WaitForSeconds(timeToSit);
+        yield return new WaitForSeconds(timeToFollow);
 
         isSitting = false;
     }
+    */
 }

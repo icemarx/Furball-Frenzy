@@ -77,7 +77,8 @@ public class GameManager : MonoBehaviour
 
                             if(puppy.isFree)
                             {
-                                puppy.isFree = false;
+                                // puppy.isFree = false;
+                                puppy.StartCoroutine(puppy.Follow());
                                 break;
                             }
                         } else if (collider.gameObject.CompareTag("Rope")) {
@@ -85,7 +86,8 @@ public class GameManager : MonoBehaviour
 
                             if (puppy.isFree)
                             {
-                                puppy.isFree = false;
+                                // puppy.isFree = false;
+                                puppy.StartCoroutine(puppy.Follow());
                                 break;
                             }
                         }

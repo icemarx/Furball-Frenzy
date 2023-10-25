@@ -122,13 +122,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1ba3d5db898a8f43b234b4e03bffa1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isStray: 1
+  isSitting: 1
   player: {fileID: 0}
   moveAwaySpeed: 2.5
   moveToPlayerSpeed: 6
   acceleration: 1
-  closeToPlayerDistance: 0.5
+  closeToPlayerDistance: 1
   isFree: 1
+  timeToFollow: 4
   maxDistance: 10
   puppyIndex: -1
   rope: {fileID: 53646318347505090}
