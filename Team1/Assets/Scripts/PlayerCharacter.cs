@@ -79,7 +79,7 @@ public class PlayerCharacter : MonoBehaviour
         Vector3 puppyForce = Vector3.zero;
         foreach(Puppy puppy in puppies)
         {
-            if(puppy != null)
+            if(puppy != null && puppy.isFree)
             {
                 puppyForce += (puppy.transform.position - transform.position);
             }
