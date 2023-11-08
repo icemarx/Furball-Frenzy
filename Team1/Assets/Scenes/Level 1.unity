@@ -4683,6 +4683,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 1040991682}
   root: {fileID: 541683905}
+  minMovementRequired: 0.1
+  interpolationStep: 0.05
 --- !u!1001 &965082007
 PrefabInstance:
   m_ObjectHideFlags: 0
