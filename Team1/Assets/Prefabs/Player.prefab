@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4448195773869301259}
   - component: {fileID: 8006872953160646741}
   m_Layer: 0
-  m_Name: Sphere
+  m_Name: Arm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -260,8 +260,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 141835946e6d9414baa1b35117804488, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 2
+  movementSpeed: 2.5
   puppies:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}

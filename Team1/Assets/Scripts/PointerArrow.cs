@@ -4,14 +4,16 @@ using UnityEngine;
 
 public class PointerArrow : MonoBehaviour
 {
+    [Header("Necessary references")]
     public Transform anchor;
-    public float timeActive;
-    public float timeInactive;
-    public float timer = 0f;
-    public Puppy target = null;
-
     public bool arrowActive;
-    public MeshRenderer[] children;
+    private Puppy target = null;
+    private MeshRenderer[] children;
+
+    [Header("Tweakable")]
+    public float timeActive;    // 5f       // time when the arrow is visible and active
+    public float timeInactive;  // 10f      // time when the arrow is invisible and inactive
+    private float timer = 0f;    // 0f      // keeps track of time
 
     
 

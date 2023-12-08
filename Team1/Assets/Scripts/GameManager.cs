@@ -159,7 +159,7 @@ public class GameManager : MonoBehaviour
 
     public void UpdateCounter() {
         // get number from player and set it as text
-        textNumPuppies.SetText("" + player.numPuppiesObtained + "/" + player.puppies.Length);
+        textNumPuppies.SetText("" + player.GetNumPuppiesObtained() + "/" + player.puppies.Length);
     }
 
     public void WinConditionMet() {

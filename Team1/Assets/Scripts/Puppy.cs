@@ -5,71 +5,33 @@ using UnityEngine.AI;
 
 public class Puppy : MonoBehaviour
 {
-    // public bool isStray = true;
+    [Header("Necessary references")]
     public bool isSitting = true;
-
-    public Transform player; // Reference to the player's Transform
-    public float moveAwaySpeed = 1.5f; // Adjust this to control the puppy's movement speed
-    public float moveToPlayerSpeed = 3.0f;
-    public float acceleration = 1f;
-    private Vector3 currentVelocity = Vector3.zero;
-    public float closeToPlayerDistance = 0.1f; // distance to player that is good enough
-
     public bool isFree = true;
-    public float timeToFollow = 2f;
-
-    public float maxDistance;
-
-    public int puppyIndex = -1;
-
+    public Transform player; // Reference to the player's Transform
+    private Vector3 currentVelocity = Vector3.zero;
     public Rope rope;
-    private float lerp_t = 0.3f;
-
     public Animator animator;
-    public bool isMoving = false;
+
+    private int puppyIndex = -1;
+
+
+    [Header("Tweakable")]
+    public float moveAwaySpeed;     // 1.5f      // puppys movement speed away from the player
+    public float moveToPlayerSpeed; // 3.0f      // puppys movement speed towards the player
+    public float acceleration;      // 1f;       // acceleration at which the puppy gains speed
+    private float lerp_t = 0.3f;    // 0.3f
+
+    public float closeToPlayerDistance; // 1f   // distance to player that is good enough to consider close
+    public float timeToFollow;  // 4f           // time for which the puppy keeps following the player
+    public float maxDistance;   // 10f          // maximum distance the puppy can move away from the player (also, rope length)
+
 
     void Update() {
         if (player != null) {
             Movement();
         }
     }
-
-    /*
-    // DEPRICATED
-    void Movement() {
-        if(!isStray) {
-            if (isFree) {
-                // Calculate the direction from the puppy to the player
-                Vector3 awayFromPlayer = transform.position - player.position;
-
-                if (awayFromPlayer.magnitude <= maxDistance) {
-                    // other rules
-                    // Vector3 awayFromPuppies = transform.position - AverageOtherPuppies();
-                    Vector3 circleDir = CircleDirection();
-                    // Vector3 randomness = Random.insideUnitSphere;
-                    // randomness.y = 0;
-
-                    // join and normalize
-                    // Vector3 moveDirection = awayFromPlayer + awayFromPuppies + randomness;
-                    Vector3 moveDirection = awayFromPlayer.normalized + circleDir.normalized; // + randomness;
-                    moveDirection.Normalize();
-
-                    // move
-                    MoveInDirection(moveDirection, moveAwaySpeed);
-                } else {
-                    // stop
-                }
-            } else {
-                Vector3 toPlayer = player.position - transform.position;
-                MoveInDirection(toPlayer.normalized, moveToPlayerSpeed);
-
-                if (toPlayer.magnitude <= closeToPlayerDistance) {
-                    isFree = true;
-                }
-            }
-        }        
-    }
-    */
 
     public void Movement()
     {
@@ -100,7 +62,6 @@ public class Puppy : MonoBehaviour
                 if (Vector3.Distance(player.transform.position, targetPosition) > maxDistance)
                 {
                     // STOP movement
-                    isMoving = false;
                     currentVelocity = Vector3.zero;
                 }
                 else
@@ -118,7 +79,6 @@ public class Puppy : MonoBehaviour
 
                 if ((player.position - transform.position).magnitude <= closeToPlayerDistance)
                 {
-                    isMoving = false;
                     currentVelocity = Vector3.zero;
                 } else
                 {
@@ -128,41 +88,6 @@ public class Puppy : MonoBehaviour
         }
     }
 
-    /*
-     * 
-     * DEPRICATED
-    void MoveInDirection(Vector3 direction, float speed) {
-
-        // find location where it wants to move
-        var whereToGo = transform.position + direction * speed * Time.deltaTime;
-        NavMeshHit hit;
-        if (NavMesh.SamplePosition(whereToGo, out hit, 100f, NavMesh.AllAreas)) {
-            if(Vector3.Distance(hit.position, player.position) > maxDistance)
-            {
-                // rotate
-                var save = transform.eulerAngles;
-                transform.LookAt(hit.position);
-                float newRotation = Mathf.LerpAngle(save.y, transform.eulerAngles.y, lerp_t);
-
-                // move
-                // transform.LookAt(hit.position);
-                transform.position = hit.position;
-
-                isMoving = true;
-            } else
-            {
-                // Dont move
-                isMoving = false;
-            }
-
-        }
-        else {
-            // stop
-            Debug.Log("Puppy edge reached");
-            isMoving = false;
-        }
-    }
-    */
 
     void MoveToLocation(Vector3 whereToGo)
     {
@@ -177,14 +102,11 @@ public class Puppy : MonoBehaviour
             // move
             // transform.LookAt(hit.position);
             transform.position = hit.position;
-
-            isMoving = true;
         }
         else
         {
             // stop
             Debug.Log("Puppy edge reached");
-            isMoving = false;
             currentVelocity = Vector3.zero;
         }
     }
@@ -215,7 +137,7 @@ public class Puppy : MonoBehaviour
     }
 
     public Vector3 CircleDirection() {
-        float angle = 360.0f * puppyIndex / player.GetComponent<PlayerCharacter>().numPuppiesObtained;
+        float angle = 360.0f * puppyIndex / player.GetComponent<PlayerCharacter>().GetNumPuppiesObtained();
         return new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle));
     }
 
@@ -227,8 +149,7 @@ public class Puppy : MonoBehaviour
         isFree = true;
 
         // activate rope
-        rope.arm = arm;
-        rope.UpdateRope();
+        rope.ConnectRope(arm);
         rope.gameObject.SetActive(true);
     }
 
@@ -244,16 +165,4 @@ public class Puppy : MonoBehaviour
         yield return new WaitForSeconds(timeToFollow);
         isFree = true;
     }
-
-    // DEPRICATED
-    /*
-    public IEnumerator Sit()
-    {
-        isSitting = true;
-
-        yield return new WaitForSeconds(timeToFollow);
-
-        isSitting = false;
-    }
-    */
 }

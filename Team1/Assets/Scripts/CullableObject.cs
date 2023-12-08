@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class CullableObject : MonoBehaviour
 {
-    public float hideDistance = 1;
-    public float apearDistance = 1.5f;
-
+    [Header("Necessary references")]
     private MeshRenderer mesh;
     private Camera mainCamera;
+
+    [Header("Tweakable")]
+    public float hideDistance;  // 10f      // distance from camera at which the object will stop rendering
+    public float apearDistance; // 13.5f    // distance from camera at which the object will render
+
 
     private void Start() {
         mesh = gameObject.GetComponent<MeshRenderer>();

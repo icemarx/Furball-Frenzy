@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class Rope : MonoBehaviour
 {
-    public Transform puppy;
-    public Transform arm;
+    private Transform arm;
     
 
     public void LateUpdate() {
         UpdateRope();
     }
 
-    public void UpdateRope() {
+    private void UpdateRope() {
         if (arm) {
             // rotate
             transform.LookAt(arm);
@@ -23,5 +22,11 @@ public class Rope : MonoBehaviour
             newScale.z = distanceToPlayer / 2;
             transform.localScale = newScale;
         }
+    }
+
+    public void ConnectRope(Transform arm_anchor)
+    {
+        arm = arm_anchor;
+        UpdateRope();
     }
 }

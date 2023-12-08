@@ -5,20 +5,20 @@ using UnityEngine.AI;
 
 public class PlayerCharacter : MonoBehaviour
 {
-    public float movementSpeed = 2.0f;
-
-    //  public int maxPuppyNumber = 10;
-    public Puppy[] puppies = new Puppy[13];
-    public int numPuppiesNeededToRetrieve;
-    public int numPuppiesObtained = 0;
-    public int startingNumber = 0;
-
+    [Header("Necessary references")]
     public Transform arm;
 
+    [Header("Tweakable")]
+    //  public int maxPuppyNumber = 10;
+    public Puppy[] puppies;                      // how many puppies the player can connect (getting all should mean victory, should be changed in scene) [edit only the length of the array]
+    private int numPuppiesNeededToRetrieve;      // number of puppies needed to retrieve (calculates based on max number and starting number)
+    private int numPuppiesObtained;  // 0        // number of puppies currently connected      
+    private int startingNumber;      // 0        // number of puppies at the beginning of the level
 
     // public float maxRotationAngle = 1;
-    public float minMovementRequired;
-    private float lerp_t = 5f;
+    public float movementSpeed; // 2.5f         // how fast the character moves 
+    public float minMovementRequired;           // minimum movement distance required to move
+    private float lerp_t = 5f; // 5f
 
     // Start is called before the first frame update
     void Awake()
@@ -45,7 +45,7 @@ public class PlayerCharacter : MonoBehaviour
     }
 
     public void AddPuppy(Puppy puppy) {
-        Debug.Log(numPuppiesObtained);
+        // Debug.Log(numPuppiesObtained);
         if(puppies.Length == numPuppiesObtained) {
             Debug.Log("You win");
         } else 
@@ -175,6 +175,11 @@ public class PlayerCharacter : MonoBehaviour
             Debug.Log("Player edge reached");
         }
         */
+    }
+
+    public int GetNumPuppiesObtained()
+    {
+        return numPuppiesObtained;
     }
 
 
